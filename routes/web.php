@@ -23,11 +23,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function(){
     // Admin login Route
     Route::get('login',[AdminController::class,'login']);
-
-    // Admin Dashboard Route
-    Route::get('dashboard',[AdminController::class,'dashboard']);
-
+    Route::group(['middleware'=>['admin']],function(){
+        // Admin Dashboard Route
+        Route::get('dashboard',[AdminController::class,'dashboard']);
+    });
 });
