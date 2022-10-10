@@ -29,7 +29,15 @@
                                 </div>
                                 <h4>Hello! let's get started</h4>
                                 <h6 class="font-weight-light">Sign in to continue.</h6>
-                                <form class="pt-3" method="POST" action="{{ route('login') }}">
+                                @if(Session::has('error_message'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Error: </strong> {{ Session::get('error_message')}}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                @endif
+                                <form class="pt-3" method="POST" action="{{ url('admin/login') }}">
                                     @csrf
                                     <div class="form-group">
                                         <input type="email" class="form-control form-control-lg" id="email" name="email" :value="old('email')" required autofocus placeholder="Email">
@@ -40,7 +48,8 @@
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
                                     <div class="mt-3">
-                                        <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="{{url('login') }}">SIGN IN</a>
+                                        {{-- <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="{{url('login') }}">SIGN IN</a> --}}
+                                        <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" value="SIGN IN">
                                     </div>
                                     <div class="my-2 d-flex justify-content-between align-items-center">
                                         <div class="form-check">
